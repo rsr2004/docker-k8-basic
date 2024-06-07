@@ -51,4 +51,8 @@ docker-compose logs process-name
 - wikijs
 - onetime secret
 - dynu.com
-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
+- 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
+- plik 8080
+- wiki 7070
+- ots  6060
+- cert 5050
