@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  wiki:
+    image: requarks/wiki:2
+    ports:
+      - "2020:2020"
+    environment:
+      - DB_TYPE=sqlite
+    volumes:
+      - ./data:/var/wiki/data
+

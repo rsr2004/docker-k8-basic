@@ -9,6 +9,40 @@ docker build -t rlcosta121/nginx-proxy .
 docker run -d --name nginx-proxy -p 80:80 --network dockernetwork rlcosta121/nginx-proxy
 ```
 
+---
+
+# Wiki.js documentation
+
+```bash
+mkdir wikijs
+cd wikijs
+mkdir data
+nano docker-compose.yml
+```
+
+## docker-compose configuration
+```bash
+version: '3'
+
+services:
+  wiki:
+    image: requarks/wiki:2
+    ports:
+      - "2020:2020"
+    environment:
+      - DB_TYPE=sqlite
+    volumes:
+      - ./data:/var/wiki/data
+```
+
+```sh
+docker-compose up -d
+```
+
+## troubleshoot
+docker-compose logs process-name
+
+---
 
 ## Tools used
 
