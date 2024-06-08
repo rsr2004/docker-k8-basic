@@ -9,8 +9,7 @@ docker build -t <app-name> .
 running the images
 ```bash
 docker run -d -p 7070:8080 --network dockernetwork --name plik-app rlcosta121/plik-app
-docker run -d -p 5050:  --network dockernetwork --name
-docker run -d -p 6060:  --network dockernetwork --name
+docker run -d --name secret-app --network dockernetwork --network-alias secret-app -p 5050:5050 rlcosta121/secret-app
 docker-compose up -d (for docker-compose apps)
 docker run -d --name nginx-proxy -p 80:80 -p 443:443 --network dockernetwork rlcosta121/nginx-proxy
 ```
