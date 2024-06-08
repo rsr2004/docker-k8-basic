@@ -7,7 +7,18 @@ docker run -d -p 8081:8080 --network dockernetwork --name plik-app rlcosta121/pl
 docker build -t rlcosta121/nginx-proxy .
 docker run -d --name nginx-proxy -p 80:80 -p 443:443 --network dockernetwork rlcosta121/nginx-proxy
 
-docker network connect dockernetwork container-name
+docker exec nginx-proxy nginx -s reload
+docker restart <container-name>
+docker network inspect <network_name>
+docker container port plik-app
+
+
+remove all containers -> docker rm $(docker ps -aq)
+remove multiple docker images -> docker rmi <image_name_or_id1> <image_name_or_id2> <image_name_or_id3> ...
+remove all unused images and containers -> docker image prune |  docker container prune
+
+
+docker network connect dockernetwork <container-name>
 ```
 ---
 
@@ -51,7 +62,6 @@ docker-compose logs process-name
 - wikijs
 - onetime secret
 - dynu.com
-- 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
 - plik 8080
 - wiki 7070
 - ots  6060
