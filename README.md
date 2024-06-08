@@ -2,13 +2,13 @@
 
 ```bash
 docker network create dockernetwork
-docker build -t rlcosta121/test-app .
-docker run -d -p 5000:5000 --name test-app rlcosta121/test-app
-docker network connect dockernetwork test-app
+docker build -t rlcosta121/plik-app .
+docker run -d -p 8081:8080 --network dockernetwork --name plik-app rlcosta121/plik-app
 docker build -t rlcosta121/nginx-proxy .
-docker run -d --name nginx-proxy -p 80:80 --network dockernetwork rlcosta121/nginx-proxy
-```
+docker run -d --name nginx-proxy -p 80:80 -p 443:443 --network dockernetwork rlcosta121/nginx-proxy
 
+docker network connect dockernetwork container-name
+```
 ---
 
 # Wiki.js documentation
