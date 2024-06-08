@@ -38,7 +38,7 @@ docker network connect dockernetwork <container-name>
 docker rm $(docker ps -aq)
 docker rmi <image_name_or_id1> <image_name_or_id2> <image_name_or_id3>
 docker image prune -a
-docker container prune -a
+docker container prune
 docker system prune
 docker system df -v <- check for remenants
 ```
