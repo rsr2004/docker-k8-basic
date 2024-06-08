@@ -1,12 +1,14 @@
 version: '3'
 
 services:
-  wiki:
+  wiki-app:
     image: requarks/wiki:2
+    container_name: wiki-app  # Set the container name here
     ports:
       - "6060:3000"
     environment:
       - DB_TYPE=sqlite
     volumes:
       - ./data:/var/wiki/data
-
+    networks:
+      - dockernetwork
