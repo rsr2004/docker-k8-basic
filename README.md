@@ -2,13 +2,24 @@
 
 ```bash
 docker network create dockernetwork
-docker build -t rlcosta121/test-app .
-docker run -d -p 5000:5000 --name test-app rlcosta121/test-app
-docker network connect dockernetwork test-app
+docker build -t rlcosta121/plik-app .
+docker run -d -p 8081:8080 --network dockernetwork --name plik-app rlcosta121/plik-app
 docker build -t rlcosta121/nginx-proxy .
-docker run -d --name nginx-proxy -p 80:80 --network dockernetwork rlcosta121/nginx-proxy
-```
+docker run -d --name nginx-proxy -p 80:80 -p 443:443 --network dockernetwork rlcosta121/nginx-proxy
 
+docker exec nginx-proxy nginx -s reload
+docker restart <container-name>
+docker network inspect <network_name>
+docker container port plik-app
+
+
+remove all containers -> docker rm $(docker ps -aq)
+remove multiple docker images -> docker rmi <image_name_or_id1> <image_name_or_id2> <image_name_or_id3> ...
+remove all unused images and containers -> docker image prune |  docker container prune
+
+
+docker network connect dockernetwork <container-name>
+```
 ---
 
 # Wiki.js documentation
@@ -51,3 +62,7 @@ docker-compose logs process-name
 - wikijs
 - onetime secret
 - dynu.com
+- plik 8080
+- wiki 7070
+- ots  6060
+- cert 5050
