@@ -1,4 +1,4 @@
-## Running the project on Docker only
+# Running the project on Docker only
 
 build the images and network
 ```bash
@@ -16,7 +16,7 @@ docker run -d --name nginx-proxy -p 80:80 -p 443:443 --network dockernetwork rlc
 ```
 
 
-## Build the docker network and nginx proxy
+# Build the docker network and nginx proxy
 
 ```bash
 docker network create dockernetwork
@@ -32,7 +32,7 @@ docker network connect dockernetwork <container-name>
 ```
 ---
 
-## Pruning
+# Pruning
 
 ```bash
 docker rm $(docker ps -aq)
@@ -44,13 +44,13 @@ docker system df -v <- check for remenants
 ```
 ---
 
-## troubleshoot
+# troubleshoot
 docker logs <container-name>
 docker network inspect <network_name>
 
 ---
 
-## Tools used
+# Tools used
 
 - ejbca-ce
 - plik
