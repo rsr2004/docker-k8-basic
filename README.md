@@ -82,7 +82,7 @@ openssl x509 -req -days 365 -in server.csr -signkey server.key -out server.crt
 ```
 This will generate server.key (private key) and server.crt (certificate).
 
-2. copy the certificates into the container and expose ports
+2. copy the certificates into the container and expose ports(Dockerfile)
 ```bash
 COPY server.crt /etc/nginx/server.crt
 COPY server.key /etc/nginx/server.key
