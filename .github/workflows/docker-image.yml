@@ -19,4 +19,4 @@ jobs:
       - name: Build and push Docker images
         run: |
           docker build -t rlcosta121/plik:$GITHUB_SHA -f plik/Dockerfile .
-          docker push rlcosta121/image2:$GITHUB_SHA
+          docker push rlcosta121/plik-app:$GITHUB_SHA
