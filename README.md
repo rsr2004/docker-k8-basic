@@ -12,26 +12,17 @@ docker run -d -p 7070:8080 --network dockernetwork --name plik-app rlcosta121/pl
 docker run -d --name secret-app --network dockernetwork --network-alias secret-app -p 5050:5050 rlcosta121/secret-app
 docker-compose up -d (for docker-compose apps)
 docker run -d --name nginx-proxy -p 80:80 -p 443:443 --network dockernetwork rlcosta121/nginx-proxy
-```
----
-
-# Build the docker network and nginx proxy
-
-```bash
-docker network create dockernetwork
-docker build -t rlcosta121/plik-app .
-docker run -d -p 7070:8080 --network dockernetwork --name plik-app rlcosta121/plik-app
-docker build -t rlcosta121/nginx-proxy .
-docker run -d --name nginx-proxy -p 80:80 -p 443:443 --network dockernetwork rlcosta121/nginx-proxy
-
-docker exec nginx-proxy nginx -s reload
-docker restart <container-name>
-
 docker network connect dockernetwork <container-name>
 ```
 ---
 
-# Pruning
+```bash
+docker exec nginx-proxy nginx -s reload
+docker restart <container-name>
+```
+---
+
+# pruning
 
 ```bash
 docker rm $(docker ps -aq)
@@ -49,7 +40,7 @@ docker network inspect <network_name>
 
 ---
 
-# Tools used
+# tools used
 
 - ejbca-ce
 - plik
