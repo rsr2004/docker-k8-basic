@@ -3,7 +3,7 @@ version: '3'
 services:
   wiki-app:
     image: requarks/wiki:2
-    container_name: wiki-app  # Set the container name here
+    container_name: wiki-app
     ports:
       - "6060:3000"
     environment:
@@ -12,3 +12,8 @@ services:
       - ./data:/var/wiki/data
     networks:
       - dockernetwork
+
+networks:
+  dockernetwork:
+    external: true
+
