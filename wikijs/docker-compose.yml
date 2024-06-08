@@ -4,7 +4,7 @@ services:
   wiki:
     image: requarks/wiki:2
     ports:
-      - "2020:2020"
+      - "6060:3000"
     environment:
       - DB_TYPE=sqlite
     volumes:

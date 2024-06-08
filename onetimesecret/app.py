@@ -30,5 +30,5 @@ def send_secret():
         return 'Error sharing secret', response.status_code
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=7070)
+    app.run(host='0.0.0.0', port=5050)
 
