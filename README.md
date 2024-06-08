@@ -14,7 +14,7 @@ docker run -d -p 6060:  --network dockernetwork --name
 docker-compose up -d (for docker-compose apps)
 docker run -d --name nginx-proxy -p 80:80 -p 443:443 --network dockernetwork rlcosta121/nginx-proxy
 ```
-
+---
 
 # Build the docker network and nginx proxy
 
