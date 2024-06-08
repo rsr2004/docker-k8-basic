@@ -9,49 +9,26 @@ docker run -d --name nginx-proxy -p 80:80 -p 443:443 --network dockernetwork rlc
 
 docker exec nginx-proxy nginx -s reload
 docker restart <container-name>
-docker network inspect <network_name>
-docker container port plik-app
-
-
-remove all containers -> docker rm $(docker ps -aq)
-remove multiple docker images -> docker rmi <image_name_or_id1> <image_name_or_id2> <image_name_or_id3> ...
-remove all unused images and containers -> docker image prune |  docker container prune
-
 
 docker network connect dockernetwork <container-name>
 ```
 ---
 
-# Wiki.js documentation
+## Pruning
 
 ```bash
-mkdir wikijs
-cd wikijs
-mkdir data
-nano docker-compose.yml
+docker rm $(docker ps -aq)
+docker rmi <image_name_or_id1> <image_name_or_id2> <image_name_or_id3>
+docker image prune -a
+docker container prune -a
+docker system prune
+docker system df -v <- check for remenants
 ```
-
-## docker-compose configuration
-```bash
-version: '3'
-
-services:
-  wiki:
-    image: requarks/wiki:2
-    ports:
-      - "2020:2020"
-    environment:
-      - DB_TYPE=sqlite
-    volumes:
-      - ./data:/var/wiki/data
-```
-
-```sh
-docker-compose up -d
-```
+---
 
 ## troubleshoot
-docker-compose logs process-name
+docker logs <container-name>
+docker network inspect <network_name>
 
 ---
 
