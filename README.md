@@ -57,3 +57,18 @@ docker network inspect <network_name>
 - onetime secret
 - dynu.com
 - cloudns
+
+---
+
+# copy files from the container into the machine hosting them
+
+```sh
+docker exec -it plik-app [bash OR sh]
+```
+- identify where the file is located
+- exit the container and run
+
+```sh
+docker cp <container-name>:path/to/file/on/container /path/on/local-host
+scp -i <private-key> <instance-user>@<instance-ip>:/path/to/instance/file /path/in/local/machine
+```
