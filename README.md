@@ -62,7 +62,4 @@ docker-compose logs process-name
 - wikijs
 - onetime secret
 - dynu.com
-- plik 8080
-- wiki 7070
-- ots  6060
-- cert 5050
+- cloudns
