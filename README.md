@@ -1,5 +1,4 @@
 # Running the project on Docker only
-
 build the images and network
 ```bash
 docker network create dockernetwork
@@ -22,8 +21,7 @@ docker restart <container-name>
 ```
 ---
 
-# pruning
-
+# removing components
 ```bash
 docker rm $(docker ps -aq)
 docker rmi <image_name_or_id1> <image_name_or_id2> <image_name_or_id3>
@@ -35,13 +33,12 @@ docker system df -v <- check for remenants
 ---
 
 # troubleshoot
-docker logs <container-name>
-docker network inspect <network_name>
+- docker logs <container-name>
+- docker network inspect <network_name>
 
 ---
 
 # tools used
-
 - ejbca-ce
 - plik
 - wikijs
@@ -67,7 +64,6 @@ scp -i <private-key> <instance-user>@<instance-ip>:/path/to/instance/file /path/
 ---
 
 ## Generating the certificates to enable ssl on cert.rlcosta.clodns.ch
-
 1. Inside the nginx-proxy folder
 
 ```bash
