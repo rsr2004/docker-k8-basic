@@ -100,7 +100,7 @@ EXPOSE 443 80
 ```
 
 3. redirect incoming requests into https on path /ejbca/adminweb 
-   - nginx.conf
+- nginx.conf
 ```bash
 server {
     listen 80;
