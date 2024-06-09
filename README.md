@@ -1,6 +1,6 @@
 # Running the project on Docker only
 build the images and network
-```bash
+```sh
 docker network create dockernetwork
 docker build -t <app-name> .
 ```
