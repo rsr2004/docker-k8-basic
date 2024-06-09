@@ -1,4 +1,4 @@
-name: Publish Docker image
+name: Publish Docker images
 
 on:
   release:
@@ -7,57 +7,77 @@ on:
 
 jobs:
   push_to_registry:
-    name: Push Docker image to Docker Hub
+    name: Push Docker images to Docker Hub
     runs-on: ubuntu-latest
     steps:
       - name: Check out the repo
         uses: actions/checkout@v4
-      
+
       - name: Login to Docker Hub
         uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      
-      - name: Extract metadata (tags, labels) for Docker
-        id: meta
+
+      # Plik image
+      - name: Extract metadata for Plik
+        id: meta_plik
         uses: docker/metadata-action@9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7
         with:
           images: rlcosta121/plik-app
       
-      - name: Build and Push Plik Dockerimage
+      - name: Build and Push Plik Docker image
         uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
         with:
-          context: .
+          context: ./plik
           file: ./plik/Dockerfile
           push: true
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
+          tags: ${{ steps.meta_plik.outputs.tags }}
+          labels: ${{ steps.meta_plik.outputs.labels }}
 
-      - name: Build and Push OTS Dockerimage
-        uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
-        with:
-          context: .
-          file: ./onetimesecret/Dockerfile
-          push: true
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
-
-      - name: Build and Push nginx-proxy Dockerimage
-        uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
-        with:
-          context: .
-          file: ./nginx-proxy/Dockerfile
-          push: true
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
-
-      - name: Build and push Docker wikijs docker-compose
-        run: |
-         docker-compose -f ./wikijs/docker-compose.yml build
-         docker-compose -f ./wikijs/docker-compose.yml push   
-
-      - name: Build and push Docker ejbca docker-compose
+      - name: Build and Push EJBCA Docker image
         run: |
           docker-compose -f ./ejbca/docker-compose.yml build
-          docker-compose -f ./ejbca/docker-compose.yml push   
+          docker-compose -f ./ejbca/docker-compose.yml push
+
+      # Wiki.js image
+      - name: Extract metadata for Wiki.js
+        id: meta_wikijs
+        uses: docker/metadata-action@9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7
+        with:
+          images: rlcosta121/wikijs-app
+      
+      - name: Build and Push Wiki.js Docker image
+        uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
+        with:
+          context: ./wikijs
+          file: ./wikijs/Dockerfile
+          push: true
+          tags: ${{ steps.meta_wikijs.outputs.tags }}
+          labels: ${{ steps.meta_wikijs.outputs.labels }}
+
+      # Nginx Proxy image
+      - name: Extract metadata for Nginx Proxy
+        id: meta_nginx_proxy
+        uses: docker/metadata-action@9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7
+        with:
+          images: rlcosta121/nginx-proxy
+      
+      - name: Build and Push Nginx Proxy Docker image
+        uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
+        with:
+          context: ./nginx-proxy
+          file: ./nginx-proxy/Dockerfile
+          push: true
+          tags: ${{ steps.meta_nginx_proxy.outputs.tags }}
+          labels: ${{ steps.meta_nginx_proxy.outputs.labels }}
+
+      # OneTimeSecret image
+      - name: Extract metadata for OneTimeSecret
+        id: meta_onetimesecret
+        uses: docker/metadata-action@9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7
+        with:
+          images: rlcosta121/onetimesecret-app
+      
+      - name: Build and Push OneTimeSecret
+
