@@ -25,7 +25,7 @@ jobs:
         with:
           images: rlcosta121/plik-app
       
-      - name: Build and push Docker image
+      - name: Build and Push Plik Dockerimage
         uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
         with:
           context: .
@@ -33,3 +33,31 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+
+      - name: Build and Push OTS Dockerimage
+        uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
+        with:
+          context: .
+          file: ./onetimesecret/Dockerfile
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+
+      - name: Build and Push nginx-proxy Dockerimage
+        uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
+        with:
+          context: .
+          file: ./nginx-proxy/Dockerfile
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+
+      - name: Build and push Docker wikijs docker-compose
+        run: |
+         docker-compose -f ./wikijs/docker-compose.yml build
+         docker-compose -f ./wikijs/docker-compose.yml push   
+
+      - name: Build and push Docker ejbca docker-compose
+        run: |
+          docker-compose -f ./ejbca/docker-compose.yml build
+          docker-compose -f ./ejbca/docker-compose.yml push   
