@@ -12,7 +12,7 @@ sleep 2
 kubectl get pods -l app=nginx
 
 echo "Expose the flask application deployment using a NodePort service(--port docker-container-port)"
-kubectl expose deployment nginx --port 80 --port 443 --type NodePort
+kubectl expose deployment nginx-deployment --port 80 --port 443 --type NodePort
 
 #echo "Retrieve the node port assigned to the nginx service"
 #nginx_NODE_PORT=$(kubectl get svc nginx \

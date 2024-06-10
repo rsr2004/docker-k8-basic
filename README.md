@@ -114,3 +114,24 @@ server {
     }
 }
 ```
+
+
+## Errors
+
+The Service "nginx-fixed-service" is invalid: 
+* spec.ports[0].name: Required value
+* spec.ports[1].name: Required value
+
+- this indicates that the 'name' field is required for each port specified in the Service definition
+- example:
+```bash
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+      name: http
+    - protocol: TCP
+      port: 443
+      targetPort: 443
+      name: https
+```
