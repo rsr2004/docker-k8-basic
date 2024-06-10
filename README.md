@@ -21,6 +21,19 @@ docker restart <container-name>
 ```
 ---
 
+## Running the project on Kubernetes
+
+- inside the k8-deployment-files folder
+```sh
+./nginx-deployment
+./plik-deployment
+./secret-deployment
+./wiki-deployment
+kubectl apply -f ejbca-deployment.yaml
+```
+
+---
+
 # removing components
 ```bash
 docker rm $(docker ps -aq)
