@@ -1,9 +1,9 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: plik
+  name: nginx-deployment
   labels:
-    app: plik
+    app: nginx
 spec:
   selector:
     matchLabels:
@@ -14,14 +14,15 @@ spec:
   template:
     metadata:
       labels:
-        app: plik
+        app: nginx
         octopusexport: OctopusExport
     spec:
       containers:
-        - name: plik-app
-          image: 'rlcosta121/plik-app:latest'
+        - name: nginx-proxy
+          image: 'rlcosta121/nginx-proxy:latest'
           ports:
-            - containerPort: 8080
+            - containerPort: 80
+            - containerPort: 443
               protocol: TCP
       affinity:
         podAntiAffinity:

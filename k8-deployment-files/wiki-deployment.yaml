@@ -1,9 +1,9 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: plik
+  name: wikijs
   labels:
-    app: plik
+    app: wikijs
 spec:
   selector:
     matchLabels:
@@ -14,14 +14,14 @@ spec:
   template:
     metadata:
       labels:
-        app: plik
+        app: wikijs
         octopusexport: OctopusExport
     spec:
       containers:
-        - name: plik-app
-          image: 'rlcosta121/plik-app:latest'
+        - name: wikijs-app
+          image: 'rlcosta121/wikijs-app:latest'
           ports:
-            - containerPort: 8080
+            - containerPort: 6060
               protocol: TCP
       affinity:
         podAntiAffinity:

@@ -2,23 +2,23 @@
 
 source public-ip-addresses
 
-echo "Create a deployment for a flask application"
-kubectl apply -f flask-deployment-nodeport.yaml
+echo "Create a deployment for wikijs"
+kubectl apply -f wiki-deployment.yaml
 
-echo "Create a deployment for plik service(fixed nodeport)"
-kubectl apply -f plik-service.yaml
+echo "Create a deployment for wiki's fixed port"
+kubectl apply -f wiki-service.yaml
 
 sleep 2
-kubectl get pods -l app=plik
+kubectl get pods -l app=wikijs
 
 echo "Expose the flask application deployment using a NodePort service(--port docker-container-port)"
-kubectl expose deployment plik --port 8080 --type NodePort
+kubectl expose deployment wikijs --port 3000 --type NodePort
 
-#echo "Retrieve the node port assigned to the plik service"
-#export PLIK_NODE_PORT=$(kubectl get svc plik \
+#echo "Retrieve the node port assigned to the WIKIJS service"
+#WIKIJS_NODE_PORT=$(kubectl get svc wikijs \
 #  --output=jsonpath='{range .spec.ports[0]}{.nodePort}')
 
-echo "Allow remote access to plik node port"
+echo "Allow remote access to wikijs node port"
 SECURITY_GROUP_ID=$(aws ec2 describe-security-groups \
 --filters "Name=tag:Name,Values=kubernetes-the-hard-way" \
 --output text --query 'SecurityGroups[0].GroupId')
@@ -26,7 +26,7 @@ SECURITY_GROUP_ID=$(aws ec2 describe-security-groups \
 aws ec2 authorize-security-group-ingress \
   --group-id "${SECURITY_GROUP_ID}" \
   --protocol tcp \
-  --port 30001 \
+  --port 30002 \
   --cidr 0.0.0.0/0
 
 echo "Retrieve the external IP address of a worker instance"
@@ -34,4 +34,4 @@ EXTERNAL_IP=${PUBLIC_ADDRESS[worker-0]}
 echo "${EXTERNAL_IP}"
 
 echo "Make an HTTP request using the external IP address and the nginx node port"
-curl -I http://"${EXTERNAL_IP}":30001
+curl -I http://"${EXTERNAL_IP}":30002
