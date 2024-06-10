@@ -6,7 +6,7 @@ docker build -t <app-name> .
 ```
 
 running the images
-```bash
+```sh
 docker run -d -p 7070:8080 --network dockernetwork --name plik-app --network-alias plik-app rlcosta121/plik-app
 docker run -d --name secret-app --network dockernetwork --network-alias secret-app -p 5050:5050 rlcosta121/secret-app
 docker run -d --name wiki-app --network dockernetwork --network-alias wiki-app -p 6060:3000 rlcosta121/wiki-app
