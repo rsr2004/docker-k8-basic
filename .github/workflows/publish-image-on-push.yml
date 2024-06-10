@@ -32,7 +32,7 @@ jobs:
           context: ./plik
           file: ./plik/Dockerfile
           push: true
-          tags: ${{ steps.meta_plik.outputs.tags }},latest
+          tags: ${{ steps.meta_plik.outputs.tags }}
           labels: ${{ steps.meta_plik.outputs.labels }}
 
       - name: Build and Push EJBCA Docker image
@@ -53,7 +53,7 @@ jobs:
           context: ./wikijs
           file: ./wikijs/Dockerfile
           push: true
-          tags: ${{ steps.meta_wikijs.outputs.tags }},latest
+          tags: ${{ steps.meta_wikijs.outputs.tags }}
           labels: ${{ steps.meta_wikijs.outputs.labels }}
 
       # Nginx Proxy image
@@ -69,7 +69,7 @@ jobs:
           context: ./nginx-proxy
           file: ./nginx-proxy/Dockerfile
           push: true
-          tags: ${{ steps.meta_nginx_proxy.outputs.tags }},latest
+          tags: ${{ steps.meta_nginx_proxy.outputs.tags }}
           labels: ${{ steps.meta_nginx_proxy.outputs.labels }}
 
       # OneTimeSecret image
@@ -85,5 +85,5 @@ jobs:
           context: ./onetimesecret
           file: ./onetimesecret/Dockerfile
           push: true
-          tags: ${{ steps.meta_onetimesecret.outputs.tags }},latest
+          tags: ${{ steps.meta_onetimesecret.outputs.tags }}
           labels: ${{ steps.meta_onetimesecret.outputs.labels }}
