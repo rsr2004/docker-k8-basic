@@ -27,6 +27,7 @@ spec:
           value: ejbca
         - name: MYSQL_HOST
           value: mysql
+
 ---
 apiVersion: v1
 kind: Service
@@ -36,10 +37,12 @@ spec:
   selector:
     app: ejbca
   ports:
-    - protocol: TCP
+    - name: http
+      protocol: TCP
       port: 8080
       targetPort: 8080
-    - protocol: TCP
+    - name: https
+      protocol: TCP
       port: 8443
       targetPort: 8443
   type: NodePort
