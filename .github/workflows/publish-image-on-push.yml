@@ -24,7 +24,7 @@ jobs:
         id: meta_plik
         uses: docker/metadata-action@9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7
         with:
-          images: rlcosta121/plik-app:latest
+          images: rlcosta121/plik-app
       
       - name: Build and Push Plik Docker image
         uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
@@ -32,7 +32,7 @@ jobs:
           context: ./plik
           file: ./plik/Dockerfile
           push: true
-          tags: ${{ steps.meta_plik.outputs.tags }}
+          tags: ${{ steps.meta_plik.outputs.tags }},latest
           labels: ${{ steps.meta_plik.outputs.labels }}
 
       - name: Build and Push EJBCA Docker image
@@ -45,7 +45,7 @@ jobs:
         id: meta_wikijs
         uses: docker/metadata-action@9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7
         with:
-          images: rlcosta121/wikijs-app:latest
+          images: rlcosta121/wikijs-app
       
       - name: Build and Push Wiki.js Docker image
         uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
@@ -53,7 +53,7 @@ jobs:
           context: ./wikijs
           file: ./wikijs/Dockerfile
           push: true
-          tags: ${{ steps.meta_wikijs.outputs.tags }}
+          tags: ${{ steps.meta_wikijs.outputs.tags }},latest
           labels: ${{ steps.meta_wikijs.outputs.labels }}
 
       # Nginx Proxy image
@@ -61,7 +61,7 @@ jobs:
         id: meta_nginx_proxy
         uses: docker/metadata-action@9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7
         with:
-          images: rlcosta121/nginx-proxy:latest
+          images: rlcosta121/nginx-proxy
       
       - name: Build and Push Nginx Proxy Docker image
         uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
@@ -69,7 +69,7 @@ jobs:
           context: ./nginx-proxy
           file: ./nginx-proxy/Dockerfile
           push: true
-          tags: ${{ steps.meta_nginx_proxy.outputs.tags }}
+          tags: ${{ steps.meta_nginx_proxy.outputs.tags }},latest
           labels: ${{ steps.meta_nginx_proxy.outputs.labels }}
 
       # OneTimeSecret image
@@ -77,7 +77,7 @@ jobs:
         id: meta_onetimesecret
         uses: docker/metadata-action@9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7
         with:
-          images: rlcosta121/secret-app:latest
+          images: rlcosta121/secret-app
       
       - name: Build and Push OneTimeSecret Docker image
         uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
@@ -85,5 +85,5 @@ jobs:
           context: ./onetimesecret
           file: ./onetimesecret/Dockerfile
           push: true
-          tags: ${{ steps.meta_onetimesecret.outputs.tags }}
+          tags: ${{ steps.meta_onetimesecret.outputs.tags }},latest
           labels: ${{ steps.meta_onetimesecret.outputs.labels }}
