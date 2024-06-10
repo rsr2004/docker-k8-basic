@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
         - name: nginx-proxy
-          image: 'rlcosta121/nginx-proxy:latest'
+          image: 'rlcosta121/nginx-proxy:main'
           ports:
             - containerPort: 80
             - containerPort: 443

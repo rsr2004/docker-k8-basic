@@ -2,36 +2,33 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: plik-deployment
-  labels:
-    app: plik
 spec:
+  replicas: 3
   selector:
     matchLabels:
-      octopusexport: OctopusExport
-  replicas: 3
-  strategy:
-    type: RollingUpdate
+      app: plik
   template:
     metadata:
       labels:
         app: plik
-        octopusexport: OctopusExport
     spec:
       containers:
-        - name: plik-app
-          image: 'rlcosta121/plik-app:latest'
-          ports:
-            - containerPort: 8080
-              protocol: TCP
-      affinity:
-        podAntiAffinity:
-          preferredDuringSchedulingIgnoredDuringExecution:
-            - weight: 100
-              podAffinityTerm:
-                labelSelector:
-                  matchExpressions:
-                    - key: app
-                      operator: In
-                      values:
-                        - web
-                topologyKey: kubernetes.io/hostname
+      - name: plik-container
+        image: rlcosta121/plik-app
+        ports:
+        - containerPort: 8080
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: plik-service
+spec:
+  selector:
+    app: plik
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+  type: ClusterIP
