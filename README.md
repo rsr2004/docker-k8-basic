@@ -148,3 +148,25 @@ The Service "nginx-fixed-service" is invalid:
       targetPort: 443
       name: https
 ```
+
+---
+
+## TEMP
+
+domain to lb ip
+to
+load balancer(network lb) 80 > 30080 | 443 > 30443
+to
+target group(ips | 30080 is worker port) 30080 > 80(container-port) | 30443 > 443(container-port)
+
+------------------
+
+nginx listen on port 80 and 443(nodePort:30080, 30443 in nginx-deployment.yaml | externalIPs: -lbIP dentro do service)
+to
+redirect to internal ports. ex: 8080, 5050, 3000, 8443
+to
+
+
+
+kubectl get namespaces
+kubectl delete namespace <namespace-name>
