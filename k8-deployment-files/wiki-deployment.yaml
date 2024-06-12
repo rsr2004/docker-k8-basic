@@ -8,7 +8,7 @@ spec:
   selector:
     matchLabels:
       octopusexport: OctopusExport
-  replicas: 3
+  replicas: 1
   strategy:
     type: RollingUpdate
   template:
@@ -19,9 +19,9 @@ spec:
     spec:
       containers:
         - name: wikijs-app
-          image: 'rlcosta121/wikijs-app:latest'
+          image: rlcosta121/wikijs-app:main
           ports:
-            - containerPort: 6060
+            - containerPort: 3000
               protocol: TCP
       affinity:
         podAntiAffinity:

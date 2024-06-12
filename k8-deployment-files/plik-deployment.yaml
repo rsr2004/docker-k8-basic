@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: plik-deployment
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: plik
@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: plik-container
-        image: rlcosta121/plik-app
+        image: rlcosta121/plik-app:main
         ports:
         - containerPort: 8080
 
@@ -23,12 +23,13 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: plik-service
+  name: nginx-service
 spec:
   selector:
-    app: plik
+    app: nginx
   ports:
     - protocol: TCP
       port: 8080
       targetPort: 8080
-  type: ClusterIP
+      nodePort: 30001  # You can specify a port in the range 30000-32767
+  type: NodePort
