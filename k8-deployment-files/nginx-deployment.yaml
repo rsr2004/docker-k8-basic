@@ -9,8 +9,6 @@ spec:
     matchLabels:
       octopusexport: OctopusExport
   replicas: 3
-  externalIPs:
-    - 34.192.67.156
   strategy:
     type: RollingUpdate
   template:
@@ -38,3 +36,27 @@ spec:
                       values:
                         - web
                 topologyKey: kubernetes.io/hostname
+
+---
+
+
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-service
+spec:
+  selector:
+    app: nginx
+  externalIPs:
+    - 34.192.67.156
+  ports:
+    - name: http
+      protocol: TCP
+      port: 80
+      targetPort: 80
+    - name: https
+      protocol: TCP
+      port: 443
+      targetPort: 443
+  type: NodePort

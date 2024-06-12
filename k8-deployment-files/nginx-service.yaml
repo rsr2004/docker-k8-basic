@@ -5,6 +5,8 @@ metadata:
 spec:
   selector:
     app: nginx
+  externalIPs:
+    - 34.192.67.156
   ports:
     - name: http
       protocol: TCP
