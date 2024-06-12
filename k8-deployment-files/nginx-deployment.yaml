@@ -9,6 +9,8 @@ spec:
     matchLabels:
       octopusexport: OctopusExport
   replicas: 3
+  externalIPs:
+    - 34.192.67.156
   strategy:
     type: RollingUpdate
   template:
