@@ -1,37 +1,33 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: wikijs
-  labels:
-    app: wikijs
+  name: wiki-app
 spec:
+  replicas: 1
   selector:
     matchLabels:
-      octopusexport: OctopusExport
-  replicas: 1
-  strategy:
-    type: RollingUpdate
+      app: wiki
   template:
     metadata:
       labels:
-        app: wikijs
-        octopusexport: OctopusExport
+        app: wiki
     spec:
       containers:
-        - name: wikijs-app
-          image: rlcosta121/wikijs-app:main
-          ports:
-            - containerPort: 3000
-              protocol: TCP
-      affinity:
-        podAntiAffinity:
-          preferredDuringSchedulingIgnoredDuringExecution:
-            - weight: 100
-              podAffinityTerm:
-                labelSelector:
-                  matchExpressions:
-                    - key: app
-                      operator: In
-                      values:
-                        - web
-                topologyKey: kubernetes.io/hostname
+      - name: wiki
+        image: linuxserver/wikijs:latest
+        ports:
+        - containerPort: 3000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: wiki-service
+spec:
+  selector:
+    app: wiki
+  ports:
+    - protocol: TCP
+      port: 3000
+      targetPort: 3000
+  type: ClusterIP
+

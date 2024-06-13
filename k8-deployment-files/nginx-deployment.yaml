@@ -1,46 +1,30 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nginx-deployment
-  labels:
-    app: nginx
+  name: nginx-proxy
 spec:
+  replicas: 1
   selector:
     matchLabels:
-      octopusexport: OctopusExport
-  replicas: 3
-  strategy:
-    type: RollingUpdate
+      app: nginx
   template:
     metadata:
       labels:
         app: nginx
-        octopusexport: OctopusExport
     spec:
       containers:
-        - name: nginx-proxy
-          image: 'rlcosta121/nginx-proxy:main'
-          ports:
-            - containerPort: 80
-            - containerPort: 443
-              protocol: TCP
-      affinity:
-        podAntiAffinity:
-          preferredDuringSchedulingIgnoredDuringExecution:
-            - weight: 100
-              podAffinityTerm:
-                labelSelector:
-                  matchExpressions:
-                    - key: app
-                      operator: In
-                      values:
-                        - web
-                topologyKey: kubernetes.io/hostname
-
+      - name: nginx
+        image: nginx:latest
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - name: nginx-config
+          mountPath: /etc/nginx/conf.d
+      volumes:
+      - name: nginx-config
+        configMap:
+          name: nginx-config
 ---
-
-
-
 apiVersion: v1
 kind: Service
 metadata:
@@ -48,15 +32,11 @@ metadata:
 spec:
   selector:
     app: nginx
-  externalIPs:
-    - 34.192.67.156
   ports:
-    - name: http
-      protocol: TCP
+    - protocol: TCP
       port: 80
       targetPort: 80
-    - name: https
-      protocol: TCP
-      port: 443
-      targetPort: 443
-  type: NodePort
+      nodePort: 30080
+  type: LoadBalancer
+  externalIPs: 3.93.137.120
+
