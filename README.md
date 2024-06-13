@@ -25,16 +25,13 @@ docker restart <container-name>
 
 - inside the k8-deployment-files folder
 ```sh
-./nginx-deployment
-./plik-deployment
-./secret-deployment
-./wiki-deployment
-kubectl apply -f ejbca-deployment.yaml
+./run-kube.sh
+kubectl apply -f <yaml-file-name> 
 ```
 
 ---
 
-# removing components
+# removing components in docker
 ```bash
 docker rm $(docker ps -aq)
 docker rmi <image_name_or_id1> <image_name_or_id2> <image_name_or_id3>
@@ -45,26 +42,24 @@ docker system df -v <- check for remenants
 ```
 ---
 
+# removing components in k8s
+```bash
+kubectl delete <service/deployment>
+kubectl delete all --all --all-namespaces
+```
+
+---
+
 # troubleshoot
 - docker logs <container-name>
 - docker network inspect <network_name>
 
 ---
 
-# tools used
-- ejbca-ce
-- plik
-- wikijs
-- onetime secret
-- dynu.com
-- cloudns
-
----
-
 # copy files from the container into the machine hosting them
 
 ```sh
-docker exec -it plik-app [bash OR sh]
+docker/kubectl exec -it plik-app [bash OR sh]
 ```
 - identify where the file is located
 - exit the container and run
