@@ -1,4 +1,4 @@
-# Running the project on Docker only
+## Running the project on Docker only
 build the images and network
 ```sh
 docker network create dockernetwork
@@ -53,7 +53,7 @@ kubectl delete all --all --all-namespaces
 # troubleshoot
 - docker logs <container-name>
 - docker network inspect <network_name>
-
+- kubectl logs <pod-name>
 ---
 
 # copy files from the container into the machine hosting them
