@@ -20,10 +20,16 @@ spec:
         volumeMounts:
         - name: nginx-config
           mountPath: /etc/nginx/conf.d
+        - name: nginx-certs
+          mountPath: /etc/nginx/certs
       volumes:
       - name: nginx-config
         configMap:
           name: nginx-config
+      - name: nginx-certs
+        secret:
+          secretName: nginx-certs
+
 ---
 apiVersion: v1
 kind: Service
