@@ -38,5 +38,6 @@ spec:
       targetPort: 80
       nodePort: 30080
   type: LoadBalancer
-  externalIPs: 3.93.137.120
+  externalIPs: 
+    - 3.93.137.120
 
