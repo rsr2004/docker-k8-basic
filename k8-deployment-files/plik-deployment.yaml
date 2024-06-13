@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: plik
-        image: rlcosta121/plik-app:main
+        image: rootgg/plik:latest
         ports:
         - containerPort: 8080
 ---
