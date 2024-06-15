@@ -29,7 +29,6 @@ jobs:
       - name: Build and Push Plik Docker image
         uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
         with:
-          context: ./plik
           file: .docker-deployment-files/plik/Dockerfile
           push: true
           tags: ${{ steps.meta_plik.outputs.tags }}
@@ -50,7 +49,6 @@ jobs:
       - name: Build and Push Wiki.js Docker image
         uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
         with:
-          context: ./wikijs
           file: .docker-deployment-files/wikijs/Dockerfile
           push: true
           tags: ${{ steps.meta_wikijs.outputs.tags }}
@@ -66,7 +64,6 @@ jobs:
       - name: Build and Push Nginx Proxy Docker image
         uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
         with:
-          context: ./nginx-proxy
           file: .docker-deployment-files/nginx-proxy/Dockerfile
           push: true
           tags: ${{ steps.meta_nginx_proxy.outputs.tags }}
@@ -82,7 +79,6 @@ jobs:
       - name: Build and Push OneTimeSecret Docker image
         uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
         with:
-          context: ./onetimesecret
           file: .docker-deployment-files/onetimesecret/Dockerfile
           push: true
           tags: ${{ steps.meta_onetimesecret.outputs.tags }}
