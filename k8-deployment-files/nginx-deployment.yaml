@@ -17,13 +17,19 @@ spec:
         image: nginx:latest
         ports:
         - containerPort: 80
+        - containerPort: 443
         volumeMounts:
         - name: nginx-config
           mountPath: /etc/nginx/conf.d
+        - name: nginx-certs
+          mountPath: /etc/nginx/certs
       volumes:
       - name: nginx-config
         configMap:
           name: nginx-config
+      - name: nginx-certs
+        secret:
+          secretName: nginx-certs
 
 ---
 apiVersion: v1
@@ -34,10 +40,16 @@ spec:
   selector:
     app: nginx
   ports:
-    - protocol: TCP
+    - name: http
+      protocol: TCP
       port: 80
       targetPort: 80
       nodePort: 30080
+    - name: https
+      protocol: TCP
+      port: 443
+      targetPort: 443
+      nodePort: 30443
   type: LoadBalancer
   externalIPs: 
     - 54.236.161.58
