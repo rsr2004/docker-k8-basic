@@ -28,6 +28,6 @@ kubectl apply -f <yaml-file-name>
 # Secret creation for the certificates
 
 Create a new TLS secret named tls-secret with the given key pair
-`kubectl create secret tls tls-secret --cert=path/to/tls.crt --key=path/to/tls.key`
+- `kubectl create secret tls tls-secret --cert=path/to/tls.crt --key=path/to/tls.key`
 
 
