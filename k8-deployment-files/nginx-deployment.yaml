@@ -20,15 +20,10 @@ spec:
         volumeMounts:
         - name: nginx-config
           mountPath: /etc/nginx/conf.d
-        - name: nginx-certs
-          mountPath: /etc/nginx/certs
       volumes:
       - name: nginx-config
         configMap:
           name: nginx-config
-      - name: nginx-certs
-        secret:
-          secretName: nginx-certs
 
 ---
 apiVersion: v1
@@ -45,5 +40,5 @@ spec:
       nodePort: 30080
   type: LoadBalancer
   externalIPs: 
-    - 3.93.137.120
+    - 54.236.161.58
 
