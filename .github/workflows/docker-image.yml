@@ -30,15 +30,15 @@ jobs:
         uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
         with:
           context: ./plik
-          file: ./plik/Dockerfile
+          file: .docker-deployment-files/plik/Dockerfile
           push: true
           tags: ${{ steps.meta_plik.outputs.tags }}
           labels: ${{ steps.meta_plik.outputs.labels }}
 
       - name: Build and Push EJBCA Docker image
         run: |
-          docker-compose -f ./ejbca/docker-compose.yml build
-          docker-compose -f ./ejbca/docker-compose.yml push
+          docker-compose -f .docker-deployment-files/ejbca/docker-compose.yml build
+          docker-compose -f .docker-deployment-files/ejbca/docker-compose.yml push
 
       # Wiki.js image
       - name: Extract metadata for Wiki.js
@@ -51,7 +51,7 @@ jobs:
         uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
         with:
           context: ./wikijs
-          file: ./wikijs/Dockerfile
+          file: .docker-deployment-files/wikijs/Dockerfile
           push: true
           tags: ${{ steps.meta_wikijs.outputs.tags }}
           labels: ${{ steps.meta_wikijs.outputs.labels }}
@@ -67,7 +67,7 @@ jobs:
         uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
         with:
           context: ./nginx-proxy
-          file: ./nginx-proxy/Dockerfile
+          file: .docker-deployment-files/nginx-proxy/Dockerfile
           push: true
           tags: ${{ steps.meta_nginx_proxy.outputs.tags }}
           labels: ${{ steps.meta_nginx_proxy.outputs.labels }}
@@ -83,7 +83,7 @@ jobs:
         uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
         with:
           context: ./onetimesecret
-          file: ./onetimesecret/Dockerfile
+          file: .docker-deployment-files/onetimesecret/Dockerfile
           push: true
           tags: ${{ steps.meta_onetimesecret.outputs.tags }}
           labels: ${{ steps.meta_onetimesecret.outputs.labels }}
