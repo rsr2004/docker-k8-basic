@@ -1,4 +1,4 @@
-# Simple docker + k8s project
+# Simple docker & k8s project
 
 Project's goal:
 

@@ -17,6 +17,24 @@ spec:
         image: rootgg/plik:latest
         ports:
         - containerPort: 8080
+        env:
+          - name: DATABASE_HOST  # Replace with actual database host
+            value: postgres-service
+          - name: DATABASE_PORT  # Replace with actual database port if different
+            value: "5432"
+          - name: DATABASE_NAME
+            value: plik_db  # Should match POSTGRES_DB in PostgreSQL Deployment
+          - name: DATABASE_USER
+            value: plik_user  # Should match POSTGRES_USER in PostgreSQL Deployment
+          - name: DATABASE_PASSWORD
+            value: password  # Should match POSTGRES_PASSWORD in PostgreSQL Deployment
+        volumeMounts:
+          - name: data
+            mountPath: /data
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: plik-pvc  # Name of your PersistentVolumeClaim
 ---
 apiVersion: v1
 kind: Service
