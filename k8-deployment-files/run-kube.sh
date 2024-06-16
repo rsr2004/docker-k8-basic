@@ -1,10 +1,5 @@
 #!/bin/bash
 
-kubectl apply -f pv.yaml
-
-sleep3
-kubectl apply -f pvc.yaml
-
 sleep 3
 kubectl apply -f postgres-deployment.yaml
 
