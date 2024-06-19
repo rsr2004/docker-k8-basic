@@ -21,7 +21,7 @@ kubectl apply -f <yaml-file-name>
 
 - kubectl logs <pod-name>
 - kubectl describe pods
-- curl -I http://<subdomain>.rlcosta.cloudns.ch
+- curl -I http://<subdomain>.rafaelsraposo.cloudns.be
 
 ---
 
