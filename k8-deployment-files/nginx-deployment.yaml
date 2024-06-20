@@ -18,6 +18,13 @@ spec:
           ports:
             - containerPort: 80
             - containerPort: 443
+          volumeMounts:
+            - name: nginx-config
+              mountPath: /etc/nginx/conf.d
+      volumes:
+        - name: nginx-config
+          configMap:
+            name: nginx-config
 
 ---
 apiVersion: v1
@@ -39,4 +46,3 @@ spec:
       targetPort: 443
       nodePort: 30443
   type: LoadBalancer
-
