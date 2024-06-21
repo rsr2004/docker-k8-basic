@@ -18,13 +18,20 @@ spec:
           ports:
             - containerPort: 80
             - containerPort: 443
+            - containerPort: 5432
           volumeMounts:
             - name: nginx-config
-              mountPath: /etc/nginx/conf.d
+              mountPath: /etc/nginx/nginx.conf
+              subPath: nginx.conf
+            - name: nginx-certs
+              mountPath: /etc/nginx/certs
       volumes:
         - name: nginx-config
           configMap:
             name: nginx-config
+        - name: nginx-certs
+          secret:
+            secretName: rafaelsraposo.cloudns.be
 
 ---
 apiVersion: v1
@@ -45,4 +52,7 @@ spec:
       port: 443
       targetPort: 443
       nodePort: 30443
+    - name: postgresql
+      protocol: TCP
+      port: 5432
   type: LoadBalancer

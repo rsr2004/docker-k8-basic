@@ -3,68 +3,110 @@ kind: ConfigMap
 metadata:
   name: nginx-config
 data:
-  default.conf: |
-    server {
-        listen 80;
-        server_name plik.rafaelsraposo.cloudns.be;
+  nginx.conf: |
+    events {}
+    http {
+        server {
+            listen 80;
+            server_name onetimesecret.rafaelsraposo.cloudns.be;
+
+            location / {
+                return 301 https://$host$request_uri;
+            }
+        }
+
+        server {
+            listen 443 ssl;
+            server_name onetimesecret.rafaelsraposo.cloudns.be;
+            ssl_certificate /home/ec2-user/certs/fullchain1.pem;
+            ssl_certificate_key /home/ec2-user/certs/privkey1.pem;
     
-        location / {
-            proxy_pass http://plik-service.default.svc.cluster.local:8080;
-            proxy_set_header Host $host;
-            proxy_set_header X-Real-IP $remote_addr;
-            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-            proxy_set_header X-Forwarded-Proto $scheme;
+            location / {
+                proxy_pass http://secret-service.default.svc.cluster.local:7143;
+                proxy_set_header Host $host;
+                proxy_set_header X-Real-IP $remote_addr;
+                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+                proxy_set_header X-Forwarded-Proto $scheme;
+            }
         }
-    }
 
-    server {
-        listen 80;
-        server_name wikijs.rafaelsraposo.cloudns.be;
+        server {
+            listen 80;
+            server_name plik.rafaelsraposo.cloudns.be;
 
-        location / {
-            proxy_pass http://wiki-service.default.svc.cluster.local:3000;
-            proxy_set_header Host $host;
-            proxy_set_header X-Real-IP $remote_addr;
-            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-            proxy_set_header X-Forwarded-Proto $scheme;
+            location / {
+                return 301 https://$host$request_uri;
+            }
         }
-    }
 
-    server {
-        listen 80;
-        server_name onetimesecret.rafaelsraposo.cloudns.be;
-
-        location / {
-            proxy_pass http://secret-service.default.svc.cluster.local:7143;
-            proxy_set_header Host $host;
-            proxy_set_header X-Real-IP $remote_addr;
-            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-            proxy_set_header X-Forwarded-Proto $scheme;
-        }
-    }
-
-    server {
-        listen 80;
-        server_name cert.rafaelsraposo.cloudns.be;
-
-        location / {
-            return 301 https://$server_name$request_uri;
-        } 
-    }
+        server {
+            listen 443 ssl;
+            server_name plik.rafaelsraposo.cloudns.be;
     
-    server {
-           listen 443;
-           server_name cert.rafaelsraposo.cloudns.be;
+            ssl_certificate /home/ec2-user/certs/fullchain1.pem;
+            ssl_certificate_key /etc/nginx/certs/privkey.pem;
+    
+            location / {
+                proxy_pass http://plik-service.default.svc.cluster.local:8080;
+                proxy_set_header Host $host;
+                proxy_set_header X-Real-IP $remote_addr;
+                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+                proxy_set_header X-Forwarded-Proto $scheme;
+            }
+        }
 
-           location / {
-               proxy_pass https://ejbca-service.default.svc.cluster.local:8443/ejbca/adminweb;
-               proxy_set_header Host $host;
-               proxy_set_header X-Real-IP $remote_addr;
-               proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-               proxy_set_header X-Forwarded-Proto $scheme;
+        server {
+            listen 80;
+            server_name wikijs.rafaelsraposo.cloudns.be;
 
-               proxy_redirect off;
-               proxy_buffering off;
-               proxy_ssl_verify off;
-           }
+            location / {
+                return 301 https://$host$request_uri;
+            }
+        }
+    
+        server {
+            listen 443 ssl;
+            server_name wikijs.rafaelsraposo.cloudns.be;
+            ssl_certificate /home/ec2-user/certs/fullchain1.pem;
+            ssl_certificate_key /etc/nginx/certs/privkey.pem;
+
+            location / {
+                proxy_pass http://wiki-service.default.svc.cluster.local:3000;
+                proxy_set_header Host $host;
+                proxy_set_header X-Real-IP $remote_addr;
+                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+                proxy_set_header X-Forwarded-Proto $scheme;
+            }
+        }
+
+        server {
+            listen 80;
+            server_name cert.rafaelsraposo.cloudns.be;
+
+            location / {
+                rewrite ^/(.*)$ https://$server_name/$1 permanent;
+            }
+        }
+
+        server {
+            listen 443 ssl;
+            server_name cert.rafaelsraposo.cloudns.be;
+
+            ssl_certificate /home/ec2-user/certs/fullchain1.pem;
+            ssl_certificate_key /etc/nginx/certs/privkey.pem;
+
+            location / {
+                proxy_pass https://ejbca-service.default.svc.cluster.local:8443;
+                proxy_set_header Host $host;
+                proxy_set_header X-Real-IP $remote_addr;
+                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+                proxy_set_header X-Forwarded-Proto $scheme;
+            }
+        }
+    }
+    stream {
+      server {
+         listen 5432;
+         proxy_pass postgres.default.svc.cluster.local:5432;
        }
+    }
