@@ -107,6 +107,6 @@ data:
     stream {
       server {
          listen 5432;
-         proxy_pass postgres.default.svc.cluster.local:5432;
+         proxy_pass postgres-service.default.svc.cluster.local:5432;
        }
     }
