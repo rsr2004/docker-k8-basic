@@ -18,8 +18,8 @@ data:
         server {
             listen 443 ssl;
             server_name onetimesecret.rafaelsraposo.cloudns.be;
-            ssl_certificate /home/ec2-user/certs/fullchain1.pem;
-            ssl_certificate_key /home/ec2-user/certs/privkey1.pem;
+            ssl_certificate /etc/ssl/certs/tls.crt;
+            ssl_certificate_key /etc/ssl/certs/tls.key;
     
             location / {
                 proxy_pass http://secret-service.default.svc.cluster.local:7143;
@@ -43,8 +43,8 @@ data:
             listen 443 ssl;
             server_name plik.rafaelsraposo.cloudns.be;
     
-            ssl_certificate /home/ec2-user/certs/fullchain1.pem;
-            ssl_certificate_key /etc/nginx/certs/privkey.pem;
+            ssl_certificate /etc/ssl/certs/tls.crt;
+            ssl_certificate_key /etc/ssl/certs/tls.key;
     
             location / {
                 proxy_pass http://plik-service.default.svc.cluster.local:8080;
@@ -67,8 +67,8 @@ data:
         server {
             listen 443 ssl;
             server_name wikijs.rafaelsraposo.cloudns.be;
-            ssl_certificate /home/ec2-user/certs/fullchain1.pem;
-            ssl_certificate_key /etc/nginx/certs/privkey.pem;
+            ssl_certificate /etc/ssl/certs/tls.crt;
+            ssl_certificate_key /etc/ssl/certs/tls.key;
 
             location / {
                 proxy_pass http://wiki-service.default.svc.cluster.local:3000;
@@ -92,8 +92,8 @@ data:
             listen 443 ssl;
             server_name cert.rafaelsraposo.cloudns.be;
 
-            ssl_certificate /home/ec2-user/certs/fullchain1.pem;
-            ssl_certificate_key /etc/nginx/certs/privkey.pem;
+            ssl_certificate /etc/ssl/certs/tls.crt;
+            ssl_certificate_key /etc/ssl/certs/tls.key;
 
             location / {
                 proxy_pass https://ejbca-service.default.svc.cluster.local:8443;

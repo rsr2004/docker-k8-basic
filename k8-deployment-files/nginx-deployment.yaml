@@ -23,13 +23,14 @@ spec:
             - name: nginx-config
               mountPath: /etc/nginx/nginx.conf
               subPath: nginx.conf
-            - name: nginx-certs
-              mountPath: /etc/nginx/certs
+            - name: rafaelsraposo.cloudns.be
+              mountPath: /etc/ssl/certs
+              readOnly: true
       volumes:
         - name: nginx-config
           configMap:
             name: nginx-config
-        - name: nginx-certs
+        - name: rafaelsraposo.cloudns.be
           secret:
             secretName: rafaelsraposo.cloudns.be
 
